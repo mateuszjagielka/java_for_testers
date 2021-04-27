@@ -6,21 +6,25 @@ public class MyFirstProgram {
 		hello("world");
 		hello("Boczek");
 
+		Square s = new Square(5);
+
 		double l = 5;
-		System.out.println(area(l));
-		double b = 7;
-		System.out.println(area(l, b));
+		System.out.println("Area of square with " + s.l + " sides = " + area(s));
+
+		Rectangle r = new Rectangle(5, 6);
+
+		System.out.println("Area of rectangle with sides: " + r.a + " and " + r.b +" = " + area(r));
 
 	}
 	public static void hello(String somebody) {
 		System.out.println("Hello " + somebody + "!");
 	}
 
-	public static double area(double len) {
-		return len * len;
+	public static double area(Square s) {
+		return s.l * s.l;
 	}
 
-	public static double area(double a, double b) {
-		return a * b;
+	public static double area(Rectangle r) {
+		return r.a * r.b;
 	}
 }
