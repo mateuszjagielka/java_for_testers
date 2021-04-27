@@ -3,20 +3,14 @@ package pl.jagielka.mateusz.sandbox;
 public class MyFirstProgram {
 
 	public static void main(String[] args) {
-		hello("world");
-		hello("Boczek");
-
-		Square s = new Square(5);
-
-		System.out.println("Area of square with " + s.l + " sides = " + s.area());
-
-		Rectangle r = new Rectangle(5, 6);
-
-		System.out.println("Area of rectangle with sides: " + r.a + " and " + r.b +" = " + r.area());
-
-	}
-	public static void hello(String somebody) {
-		System.out.println("Hello " + somebody + "!");
+		Point p1 = new Point(2, 3);
+		Point p2 = new Point(5, 7);
+		System.out.println("Distance between two points equals: " + distance(p1, p2));
 	}
 
+	public static double distance(Point p1, Point p2) {
+		double x = p1.x - p2.x;
+		double y = p1.y - p2.y;
+		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+	}
 }
