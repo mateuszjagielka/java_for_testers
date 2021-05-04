@@ -10,29 +10,30 @@ import org.openqa.selenium.support.ui.Select;
 
 public class ExerciseGroupTest {
   private WebDriver driver;
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    driver.get("http://localhost/addressbook/");
+    login();
   }
 
   @Test
   public void testUntitledTestCase() throws Exception {
-    driver.get("http://localhost/addressbook/");
-    driver.findElement(By.name("user")).click();
-    driver.findElement(By.name("user")).clear();
-    driver.findElement(By.name("user")).sendKeys("admin");
-    driver.findElement(By.name("pass")).click();
-    driver.findElement(By.name("pass")).clear();
-    driver.findElement(By.name("pass")).sendKeys("secret");
-    driver.findElement(By.xpath("//input[@value='Login']")).click();
-    driver.findElement(By.linkText("groups")).click();
-    driver.findElement(By.name("new")).click();
+
+    goToGroups();
+    initGroupCreation();
+    fillGroupData();
+    submitGroupCreation();
+    goToGroups();
+  }
+
+  private void submitGroupCreation() {
+    driver.findElement(By.name("submit")).click();
+  }
+
+  private void fillGroupData() {
     driver.findElement(By.name("group_name")).click();
     driver.findElement(By.name("group_name")).clear();
     driver.findElement(By.name("group_name")).sendKeys("Long group name");
@@ -42,50 +43,33 @@ public class ExerciseGroupTest {
     driver.findElement(By.name("group_footer")).click();
     driver.findElement(By.name("group_footer")).clear();
     driver.findElement(By.name("group_footer")).sendKeys("Short Group Footer");
-    driver.findElement(By.name("submit")).click();
+  }
+
+  private void initGroupCreation() {
+    driver.findElement(By.name("new")).click();
+  }
+
+  private void goToGroups() {
     driver.findElement(By.linkText("groups")).click();
-    driver.findElement(By.linkText("Logout")).click();
   }
 
   @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {
+    logout();
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
+  private void login() {
+    driver.findElement(By.name("user")).click();
+    driver.findElement(By.name("user")).clear();
+    driver.findElement(By.name("user")).sendKeys("admin");
+    driver.findElement(By.name("pass")).click();
+    driver.findElement(By.name("pass")).clear();
+    driver.findElement(By.name("pass")).sendKeys("secret");
+    driver.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
-  private boolean isAlertPresent() {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
-    }
+  private void logout() {
+    driver.findElement(By.linkText("Logout")).click();
   }
 }
