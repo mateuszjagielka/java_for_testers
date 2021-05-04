@@ -1,12 +1,13 @@
 package pl.jagielka.mateusz.addressbook.exercise;
 
-import java.util.regex.Pattern;
-import java.util.concurrent.TimeUnit;
-import org.testng.annotations.*;
-import static org.testng.Assert.*;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
 
 public class ExerciseContactTest {
   private WebDriver driver;
@@ -15,11 +16,24 @@ public class ExerciseContactTest {
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    driver.get("http://localhost/addressbook/");
+    login();
   }
 
   @Test
   public void testUntitledTestCase() throws Exception {
-    driver.get("http://localhost/addressbook/");
+    initContactCreation();
+    fillContactData();
+    submitContactCreation();
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() throws Exception {
+    logout();
+    driver.quit();
+  }
+
+  private void login() {
     driver.findElement(By.name("user")).click();
     driver.findElement(By.name("user")).clear();
     driver.findElement(By.name("user")).sendKeys("admin");
@@ -27,7 +41,17 @@ public class ExerciseContactTest {
     driver.findElement(By.name("pass")).clear();
     driver.findElement(By.name("pass")).sendKeys("secret");
     driver.findElement(By.xpath("//input[@value='Login']")).click();
-    driver.findElement(By.linkText("add new")).click();
+  }
+
+  private void logout() {
+    driver.findElement(By.linkText("Logout")).click();
+  }
+
+  private void submitContactCreation() {
+    driver.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
+  }
+
+  private void fillContactData() {
     driver.findElement(By.name("firstname")).click();
     driver.findElement(By.name("firstname")).clear();
     driver.findElement(By.name("firstname")).sendKeys("Adam");
@@ -40,12 +64,9 @@ public class ExerciseContactTest {
     driver.findElement(By.name("email")).click();
     driver.findElement(By.name("email")).clear();
     driver.findElement(By.name("email")).sendKeys("adam.nowak@secretemail.gov");
-    driver.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
-    driver.findElement(By.linkText("Logout")).click();
   }
 
-  @AfterClass(alwaysRun = true)
-  public void tearDown() throws Exception {
-    driver.quit();
+  private void initContactCreation() {
+    driver.findElement(By.linkText("add new")).click();
   }
 }
