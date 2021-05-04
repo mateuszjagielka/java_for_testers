@@ -23,7 +23,7 @@ public class ExerciseContactTest {
   @Test
   public void testUntitledTestCase() throws Exception {
     initContactCreation();
-    fillContactData();
+    fillContactData(new ContactData("Adam", "Nowak", "512963874", "adam.nowak@secretemail.gov"));
     submitContactCreation();
   }
 
@@ -51,19 +51,19 @@ public class ExerciseContactTest {
     driver.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
   }
 
-  private void fillContactData() {
+  private void fillContactData(ContactData contactData) {
     driver.findElement(By.name("firstname")).click();
     driver.findElement(By.name("firstname")).clear();
-    driver.findElement(By.name("firstname")).sendKeys("Adam");
+    driver.findElement(By.name("firstname")).sendKeys(contactData.getContactName());
     driver.findElement(By.name("lastname")).click();
     driver.findElement(By.name("lastname")).clear();
-    driver.findElement(By.name("lastname")).sendKeys("Nowak");
+    driver.findElement(By.name("lastname")).sendKeys(contactData.getContactSurname());
     driver.findElement(By.name("mobile")).click();
     driver.findElement(By.name("mobile")).clear();
-    driver.findElement(By.name("mobile")).sendKeys("512963874");
+    driver.findElement(By.name("mobile")).sendKeys(contactData.getContactPhoneNumber());
     driver.findElement(By.name("email")).click();
     driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys("adam.nowak@secretemail.gov");
+    driver.findElement(By.name("email")).sendKeys(contactData.getContactEmail());
   }
 
   private void initContactCreation() {
