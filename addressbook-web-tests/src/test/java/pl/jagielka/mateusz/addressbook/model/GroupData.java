@@ -1,4 +1,4 @@
-package pl.jagielka.mateusz.addressbook;
+package pl.jagielka.mateusz.addressbook.model;
 
 public class GroupData {
   private final String name;

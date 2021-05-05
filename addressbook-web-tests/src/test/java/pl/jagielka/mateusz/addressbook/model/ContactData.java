@@ -1,4 +1,4 @@
-package pl.jagielka.mateusz.addressbook;
+package pl.jagielka.mateusz.addressbook.model;
 
 public class ContactData {
   private final String contactName;

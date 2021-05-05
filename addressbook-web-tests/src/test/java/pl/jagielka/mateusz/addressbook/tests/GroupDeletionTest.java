@@ -1,4 +1,4 @@
-package pl.jagielka.mateusz.addressbook;
+package pl.jagielka.mateusz.addressbook.tests;
 
 import org.testng.annotations.Test;
 
@@ -6,9 +6,9 @@ public class GroupDeletionTest extends TestBase {
 
   @Test
   public void testUntitledTestCase() throws Exception {
-    gotoGroupPage();
-    selectGroup();
-    deleteSelectedGroups();
-    returnToGroupPage();
+    app.gotoGroupPage();
+    app.selectGroup();
+    app.deleteSelectedGroups();
+    app.returnToGroupPage();
   }
 }
