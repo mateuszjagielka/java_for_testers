@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
+import java.util.NoSuchElementException;
+
 public class HelperBase {
 
   protected WebDriver wd;
@@ -21,7 +23,12 @@ public class HelperBase {
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
   }
- public boolean isAlertPresent() {
+
+  protected void confirmAlert() {
+    wd.switchTo().alert().accept();
+  }
+
+  public boolean isAlertPresent() {
     try {
       wd.switchTo().alert();
       return true;
