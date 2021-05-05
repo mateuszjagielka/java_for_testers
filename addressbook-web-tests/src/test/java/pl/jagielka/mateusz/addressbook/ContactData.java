@@ -1,4 +1,4 @@
-package pl.jagielka.mateusz.addressbook.exercise;
+package pl.jagielka.mateusz.addressbook;
 
 public class ContactData {
   private final String contactName;
