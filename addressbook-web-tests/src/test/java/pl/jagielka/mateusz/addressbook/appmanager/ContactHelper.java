@@ -4,29 +4,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pl.jagielka.mateusz.addressbook.model.ContactData;
 
-public class ContactHelper {
-  private WebDriver wd;
+public class ContactHelper extends HelperBase {
 
   public ContactHelper(WebDriver wd) {
-    this.wd = wd;
+    super(wd);
   }
 
   public void submitContactCreation() {
-    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
+    click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
   public void fillContactData(ContactData contactData) {
-    wd.findElement(By.name("firstname")).click();
-    wd.findElement(By.name("firstname")).clear();
-    wd.findElement(By.name("firstname")).sendKeys(contactData.getContactName());
-    wd.findElement(By.name("lastname")).click();
-    wd.findElement(By.name("lastname")).clear();
-    wd.findElement(By.name("lastname")).sendKeys(contactData.getContactSurname());
-    wd.findElement(By.name("mobile")).click();
-    wd.findElement(By.name("mobile")).clear();
-    wd.findElement(By.name("mobile")).sendKeys(contactData.getContactPhoneNumber());
-    wd.findElement(By.name("email")).click();
-    wd.findElement(By.name("email")).clear();
-    wd.findElement(By.name("email")).sendKeys(contactData.getContactEmail());
+    type(By.name("firstname"), contactData.getContactName());
+    type(By.name("lastname"), contactData.getContactSurname());
+    type(By.name("mobile"), contactData.getContactPhoneNumber());
+    type(By.name("email"), contactData.getContactEmail());
   }
 }
