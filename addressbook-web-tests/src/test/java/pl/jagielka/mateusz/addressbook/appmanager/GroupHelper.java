@@ -11,7 +11,11 @@ public class GroupHelper extends HelperBase {
   }
 
   public void returnToGroupPage() {
-    click(By.linkText("group page"));
+    click(By.xpath("//a[@href='group.php']"));
+  }
+
+  public void gotoGroupPage() {
+    returnToGroupPage();
   }
 
   public void submitGroupCreation() {
@@ -45,6 +49,14 @@ public class GroupHelper extends HelperBase {
   }
 
 
+  public boolean isThereAGroup() {
+    return isElementPresent(By.name("selected[]"));
+  }
 
-
+  public void createGroup(GroupData group) {
+    initGroupCreation();
+    fillGroupForm(group);
+    submitGroupCreation();
+    returnToGroupPage();
+  }
 }

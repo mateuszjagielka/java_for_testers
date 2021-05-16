@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import pl.jagielka.mateusz.addressbook.model.ContactData;
+import pl.jagielka.mateusz.addressbook.model.GroupData;
 
 public class ContactHelper extends HelperBase {
 
@@ -50,5 +51,26 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
+  public boolean isThereAContact() {
+    return isElementPresent(By.xpath("(//tr/td/input)[1]"));
+  }
 
+  public void createContact(ContactData contact, boolean isCreation) {
+    if (isCreation) {
+      if (! isElementPresent(By.xpath("(//select[@name='new_group']/option) [2]"))) {
+        NavigationHelper navigationHelper = new NavigationHelper(wd);
+        GroupHelper groupHelper = new GroupHelper(wd);
+        navigationHelper.gotoGroupPage();
+        groupHelper.createGroup(new GroupData(
+                contact.getGroup(),
+                null,
+                null));
+        navigationHelper.gotoAddNewContactPage();
+      }
+    }
+    fillContactData(contact, isCreation);
+    submitContactCreation();
+    returnToContactPage();
+
+  }
 }
