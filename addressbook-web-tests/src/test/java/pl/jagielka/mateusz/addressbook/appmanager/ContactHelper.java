@@ -2,6 +2,8 @@ package pl.jagielka.mateusz.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import pl.jagielka.mateusz.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -14,11 +16,17 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
-  public void fillContactData(ContactData contactData) {
+  public void fillContactData(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getContactName());
     type(By.name("lastname"), contactData.getContactSurname());
     type(By.name("mobile"), contactData.getContactPhoneNumber());
     type(By.name("email"), contactData.getContactEmail());
+
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public void selectContact() {
