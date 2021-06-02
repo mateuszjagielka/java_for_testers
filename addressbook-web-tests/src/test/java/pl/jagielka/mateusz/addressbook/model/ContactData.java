@@ -1,11 +1,23 @@
 package pl.jagielka.mateusz.addressbook.model;
 
+import java.util.Objects;
+
 public class ContactData {
+  private int id;
   private final String contactName;
   private final String contactSurname;
   private final String contactPhoneNumber;
   private final String contactEmail;
   private String group;
+
+  public ContactData(int id, String contactName, String contactSurname, String contactPhoneNumber, String contactEmail, String group) {
+    this.id = id;
+    this.contactName = contactName;
+    this.contactSurname = contactSurname;
+    this.contactPhoneNumber = contactPhoneNumber;
+    this.contactEmail = contactEmail;
+    this.group = group;
+  }
 
   public ContactData(String contactName, String contactSurname, String contactPhoneNumber, String contactEmail, String group) {
     this.contactName = contactName;
@@ -34,4 +46,19 @@ public class ContactData {
   public String getGroup() {
     return group;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return id == that.id && Objects.equals(contactName, that.contactName) && Objects.equals(contactSurname, that.contactSurname);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, contactName, contactSurname);
+  }
+
+
 }

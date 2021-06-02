@@ -2,10 +2,14 @@ package pl.jagielka.mateusz.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import pl.jagielka.mateusz.addressbook.model.ContactData;
 import pl.jagielka.mateusz.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -30,8 +34,8 @@ public class ContactHelper extends HelperBase {
     }
   }
 
-  public void selectContact() {
-    click(By.xpath("(//tr/td/input)[1]"));
+  public void selectContact(int index) {
+    wd.findElements(By.xpath("//tr/td/input")).get(index).click();
   }
 
   public void submitContactDeletion() {
@@ -72,5 +76,18 @@ public class ContactHelper extends HelperBase {
     submitContactCreation();
     returnToContactPage();
 
+  }
+
+  public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      String name = element.findElement(By.xpath("(//td)[2]")).getText();
+      String surname = element.findElement(By.xpath("(//td)[3]")).getText();
+      ContactData contact = new ContactData(id, name, surname, null, null, null);
+      contacts.add(contact);
+    }
+    return contacts;
   }
 }
