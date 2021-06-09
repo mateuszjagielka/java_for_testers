@@ -59,17 +59,17 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.xpath("(//tr/td/input)[1]"));
   }
 
-  public void createContact(ContactData contact, boolean isCreation) {
+  public void create(ContactData contact, boolean isCreation) {
     if (isCreation) {
-      if (! isElementPresent(By.xpath("(//select[@name='new_group']/option) [2]"))) {
+      if (! isElementPresent(By.xpath("(//select[@name='new_group']/option) [2]")) || ! wd.findElement(By.xpath("(//select[@name='new_group']/option) [2]")).getText().equals(contact.getGroup())) {
         NavigationHelper navigationHelper = new NavigationHelper(wd);
         GroupHelper groupHelper = new GroupHelper(wd);
-        navigationHelper.gotoGroupPage();
-        groupHelper.createGroup(new GroupData(
+        navigationHelper.groupPage();
+        groupHelper.create(new GroupData(
                 contact.getGroup(),
                 null,
                 null));
-        navigationHelper.gotoAddNewContactPage();
+        navigationHelper.addNewContactPage();
       }
     }
     fillContactData(contact, isCreation);
@@ -78,7 +78,20 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  public List<ContactData> getContactList() {
+  public void modify(ContactData contact, int index) {
+    modifyContact(index);
+    fillContactData(contact, false);
+    submitContactModification();
+    returnToContactPage();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    submitContactDeletion();
+    returnToContactPage();
+  }
+
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
