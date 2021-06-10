@@ -14,12 +14,9 @@ public class ContactDeletionTest extends TestBase {
     app.goTo().contactPage();
     if (app.contact().list().size() == 0) {
       app.contact().create(
-              new ContactData(
-                      "Adam",
-                      "Nowak",
-                      "569874125",
-                      "adam.nowak@secretmail.gov",
-                      "test1"),
+              new ContactData()
+                      .withName("Adam").withSurname("Nowak").withPhoneNumber("569874125")
+                      .withEmail("adam.nowak@secretmail.gov").withGroup("test1"),
               true);
     }
   }

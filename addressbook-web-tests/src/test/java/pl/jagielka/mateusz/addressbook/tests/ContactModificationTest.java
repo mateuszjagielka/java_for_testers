@@ -16,12 +16,9 @@ public class ContactModificationTest extends TestBase {
     app.goTo().contactPage();
     if (app.contact().list().size() == 0) {
       app.contact().create(
-              new ContactData(
-                      "Adam",
-                      "Nowak",
-                      "569874125",
-                      "adam.nowak@secretmail.gov",
-                      "test1"),
+              new ContactData()
+                      .withName("Adam").withSurname("Nowak").withPhoneNumber("569874125")
+                      .withEmail("adam.nowak@secretmail.gov").withGroup("test1"),
               true);
     }
   }
@@ -29,13 +26,8 @@ public class ContactModificationTest extends TestBase {
   @Test (enabled = true)
   public void contactModificationTest() throws Exception {
     List<ContactData> before = app.contact().list();
-    ContactData contact = new ContactData(
-                                  before.get(before.size() - 1).getId(),
-                                  "Waldek",
-                                  "Kowalski",
-                                  null,
-                                  null,
-                                  null);
+    ContactData contact = new ContactData()
+            .withId(before.get(before.size() - 1).getId()).withName("Waldek").withSurname("Kowalski");
     int index = before.size() - 1;
     app.contact().modify(contact, index);
     List<ContactData> after = app.contact().list();

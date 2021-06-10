@@ -4,28 +4,11 @@ import java.util.Objects;
 
 public class ContactData {
   private int id;
-  private final String contactName;
-  private final String contactSurname;
-  private final String contactPhoneNumber;
-  private final String contactEmail;
+  private String contactName;
+  private String contactSurname;
+  private String contactPhoneNumber;
+  private String contactEmail;
   private String group;
-
-  public ContactData(int id, String contactName, String contactSurname, String contactPhoneNumber, String contactEmail, String group) {
-    this.id = id;
-    this.contactName = contactName;
-    this.contactSurname = contactSurname;
-    this.contactPhoneNumber = contactPhoneNumber;
-    this.contactEmail = contactEmail;
-    this.group = group;
-  }
-
-  public ContactData(String contactName, String contactSurname, String contactPhoneNumber, String contactEmail, String group) {
-    this.contactName = contactName;
-    this.contactSurname = contactSurname;
-    this.contactPhoneNumber = contactPhoneNumber;
-    this.contactEmail = contactEmail;
-    this.group = group;
-  }
 
   public String getContactName() {
     return contactName;
@@ -51,8 +34,34 @@ public class ContactData {
     return id;
   }
 
-  public void setId(int id) {
+  public ContactData withId(int id) {
     this.id = id;
+    return this;
+  }
+
+  public ContactData withName(String contactName) {
+    this.contactName = contactName;
+    return this;
+  }
+
+  public ContactData withSurname(String contactSurname) {
+    this.contactSurname = contactSurname;
+    return this;
+  }
+
+  public ContactData withPhoneNumber(String contactPhoneNumber) {
+    this.contactPhoneNumber = contactPhoneNumber;
+    return this;
+  }
+
+  public ContactData withEmail(String contactEmail) {
+    this.contactEmail = contactEmail;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    this.group = group;
+    return this;
   }
 
   @Override
