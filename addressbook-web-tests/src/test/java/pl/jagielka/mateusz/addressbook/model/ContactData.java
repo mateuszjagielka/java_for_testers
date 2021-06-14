@@ -73,17 +73,17 @@ public class ContactData {
   }
 
   @Override
+  public int hashCode() {
+    return Objects.hash(id, contactName, contactSurname);
+  }
+
+  @Override
   public String toString() {
     return "ContactData{" +
             "id=" + id +
             ", contactName='" + contactName + '\'' +
             ", contactSurname='" + contactSurname + '\'' +
             '}';
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, contactName, contactSurname);
   }
 
 
