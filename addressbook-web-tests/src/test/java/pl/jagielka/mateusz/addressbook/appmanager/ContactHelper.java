@@ -6,12 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import pl.jagielka.mateusz.addressbook.model.ContactData;
+import pl.jagielka.mateusz.addressbook.model.Contacts;
 import pl.jagielka.mateusz.addressbook.model.GroupData;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -90,8 +88,8 @@ public class ContactHelper extends HelperBase {
     returnToContactPage();
   }
 
-  public Set<ContactData> all() {
-    Set<ContactData> contacts = new HashSet<ContactData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
