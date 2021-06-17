@@ -62,15 +62,16 @@ public class ContactHelper extends HelperBase {
   public void create(ContactData contact, boolean isCreation) {
     if (isCreation) {
       if (! isElementPresent(By.xpath("(//select[@name='new_group']/option) [2]")) || ! wd.findElement(By.xpath("(//select[@name='new_group']/option) [2]")).getText().equals(contact.getGroup())) {
-        NavigationHelper navigationHelper = new NavigationHelper(wd);
-        GroupHelper groupHelper = new GroupHelper(wd);
-        navigationHelper.groupPage();
-        groupHelper.create(new GroupData().withName(contact.getGroup()));
-        navigationHelper.addNewContactPage();
+        NavigationHelper goTo = new NavigationHelper(wd);
+        GroupHelper group = new GroupHelper(wd);
+        goTo.groupPage();
+        group.create(new GroupData().withName(contact.getGroup()));
+        goTo.addNewContactPage();
       }
     }
     fillContactData(contact, isCreation);
     submitContactCreation();
+    contactsCache = null;
     returnToContactPage();
 
   }
@@ -79,25 +80,36 @@ public class ContactHelper extends HelperBase {
     modifyContactById(contact.getId());
     fillContactData(contact, false);
     submitContactModification();
+    contactsCache = null;
     returnToContactPage();
   }
 
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     submitContactDeletion();
+    contactsCache = null;
     returnToContactPage();
   }
 
+  public int count() {
+    return wd.findElements(By.xpath("//input[@name='selected[]']")).size();
+  }
+
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactsCache != null) {
+      return new Contacts(contactsCache);
+    }
+    contactsCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       String name = element.findElement(By.xpath("(./td)[3]")).getText();
       String surname = element.findElement(By.xpath("(./td)[2]")).getText();
       ContactData contact = new ContactData().withId(id).withName(name).withSurname(surname);
-      contacts.add(contact);
+      contactsCache.add(contact);
     }
-    return contacts;
+    return new Contacts(contactsCache);
   }
+
+  private Contacts contactsCache = null;
 }
