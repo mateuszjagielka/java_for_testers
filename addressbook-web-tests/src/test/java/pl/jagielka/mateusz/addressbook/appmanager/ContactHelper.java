@@ -22,7 +22,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void fillContactData(ContactData contactData, boolean creation) {
-    type(By.name("firstname"), contactData.getContactName());
+    type(By.name("firstname"), contactData.getName());
     type(By.name("lastname"), contactData.getSurname());
     type(By.name("home"), contactData.getHomeNumber());
     type(By.name("mobile"), contactData.getMobileNumber());
@@ -125,10 +125,10 @@ public class ContactHelper extends HelperBase {
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       String name = element.findElement(By.xpath("(./td)[3]")).getText();
       String surname = element.findElement(By.xpath("(./td)[2]")).getText();
-      String[] phones = element.findElement(By.xpath("(./td)[6]")).getText().split("\n");
+      String allPhones = element.findElement(By.xpath("(./td)[6]")).getText();
 
-      ContactData contact = new ContactData().withId(id).withName(name).withSurname(surname)
-              .withHomeNumber(phones[0]).withMobileNumber(phones[1]).withWorkNumber(phones[2]);
+
+      ContactData contact = new ContactData().withId(id).withName(name).withSurname(surname).withAllPhones(allPhones);
       contactsCache.add(contact);
     }
     return new Contacts(contactsCache);

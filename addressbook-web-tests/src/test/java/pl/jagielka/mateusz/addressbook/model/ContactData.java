@@ -4,32 +4,33 @@ import java.util.Objects;
 
 public class ContactData {
   private int id;
-  private String contactName;
-  private String contactSurname;
-  private String contactHomeNumber;
-  private String contactMobileNumber;
-  private String contactWorkNumber;
+  private String name;
+  private String lastname;
+  private String homeNumber;
+  private String mobileNumber;
+  private String workNumber;
+  private String allPhones;
   private String contactEmail;
   private String group;
 
-  public String getContactName() {
-    return contactName;
+  public String getName() {
+    return name;
   }
 
   public String getSurname() {
-    return contactSurname;
+    return lastname;
   }
 
   public String getHomeNumber() {
-    return contactHomeNumber;
+    return homeNumber;
   }
 
   public String getMobileNumber() {
-    return contactMobileNumber;
+    return mobileNumber;
   }
 
   public String getWorkNumber() {
-    return contactWorkNumber;
+    return workNumber;
   }
 
   public String getEmail() {
@@ -44,33 +45,42 @@ public class ContactData {
     return id;
   }
 
+  public String getAllPhones() {
+    return allPhones;
+  }
+
   public ContactData withId(int id) {
     this.id = id;
     return this;
   }
 
   public ContactData withName(String contactName) {
-    this.contactName = contactName;
+    this.name = contactName;
     return this;
   }
 
   public ContactData withSurname(String contactSurname) {
-    this.contactSurname = contactSurname;
+    this.lastname = contactSurname;
     return this;
   }
 
   public ContactData withHomeNumber(String contactHomeNumber) {
-    this.contactHomeNumber = contactHomeNumber;
+    this.homeNumber = contactHomeNumber;
     return this;
   }
 
   public ContactData withMobileNumber(String contactMobileNumber) {
-    this.contactMobileNumber = contactMobileNumber;
+    this.mobileNumber = contactMobileNumber;
     return this;
   }
 
   public ContactData withWorkNumber(String contactWorkNumber) {
-    this.contactWorkNumber = contactWorkNumber;
+    this.workNumber = contactWorkNumber;
+    return this;
+  }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
     return this;
   }
 
@@ -89,20 +99,20 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return id == that.id && Objects.equals(contactName, that.contactName) && Objects.equals(contactSurname, that.contactSurname);
+    return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, contactName, contactSurname);
+    return Objects.hash(id, name, lastname);
   }
 
   @Override
   public String toString() {
     return "ContactData{" +
             "id=" + id +
-            ", contactName='" + contactName + '\'' +
-            ", contactSurname='" + contactSurname + '\'' +
+            ", contactName='" + name + '\'' +
+            ", contactSurname='" + lastname + '\'' +
             '}';
   }
 
