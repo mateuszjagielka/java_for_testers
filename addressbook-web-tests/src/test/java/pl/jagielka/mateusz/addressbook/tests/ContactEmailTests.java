@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactPhoneTests extends TestBase {
+public class ContactEmailTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
@@ -23,30 +23,23 @@ public class ContactPhoneTests extends TestBase {
             .withHomeNumber("+569874125").withMobileNumber("456-321").withWorkNumber("(45)6789")
             .withEmail1("adam.nowak@secretmail.gov").withEmail2("abc@def.gh")
             .withEmail3("hgf@edc.ba").withGroup("test1");
-    if (contacts.size() == 0 || contacts.stream().filter((c) -> ! c.getAllPhones().equals("")).count() == 0) {
+    if (contacts.size() == 0 || contacts.stream().filter((c) -> ! c.getAllEmails().equals("")).count() == 0) {
       app.contact().create(contact, true);
     }
   }
 
-  @Test (enabled = true)
-  public void contactPhoneTests() {
+  @Test(enabled = true)
+  public void contactEmailTests() {
     app.goTo().contactPage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactDataFromEditForm = app.contact().getDataFromEditForm(contact);
 
-    assertThat(contact.getAllPhones(), equalTo(mergePhones(contactDataFromEditForm)));
+    assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactDataFromEditForm)));
   }
 
-  private String mergePhones(ContactData contact) {
-    return Arrays.asList(contact.getHomeNumber(), contact.getMobileNumber(), contact.getWorkNumber())
+  private String mergeEmails(ContactData contact) {
+    return Arrays.asList(contact.getEmail1(), contact.getEmail2(), contact.getEmail3())
             .stream().filter((s) -> ! s.equals(""))
-            .map(ContactPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
-
-  private static String cleaned(String phone) {
-    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
-  }
-
-
 }

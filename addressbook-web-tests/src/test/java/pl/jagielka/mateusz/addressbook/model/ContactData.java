@@ -4,21 +4,54 @@ import java.util.Objects;
 
 public class ContactData {
   private int id;
-  private String name;
+  private String firstname;
   private String lastname;
+  private String address;
+  private String address2;
+  private String email1;
+  private String email2;
+  private String email3;
+  private String allEmails;
   private String homeNumber;
   private String mobileNumber;
   private String workNumber;
   private String allPhones;
-  private String contactEmail;
   private String group;
 
-  public String getName() {
-    return name;
+  public int getId() {
+    return id;
   }
 
-  public String getSurname() {
+  public String getFirstname() {
+    return firstname;
+  }
+
+  public String getLastname() {
     return lastname;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public String getAddress2() {
+    return address2;
+  }
+
+  public String getEmail1() {
+    return email1;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public String getEmail3() {
+    return email3;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
   }
 
   public String getHomeNumber() {
@@ -33,20 +66,12 @@ public class ContactData {
     return workNumber;
   }
 
-  public String getEmail() {
-    return contactEmail;
+  public String getAllPhones() {
+    return allPhones;
   }
 
   public String getGroup() {
     return group;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public String getAllPhones() {
-    return allPhones;
   }
 
   public ContactData withId(int id) {
@@ -54,13 +79,43 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withName(String contactName) {
-    this.name = contactName;
+  public ContactData withFirstname(String firstname) {
+    this.firstname = firstname;
     return this;
   }
 
-  public ContactData withSurname(String contactSurname) {
-    this.lastname = contactSurname;
+  public ContactData withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public ContactData withAddress2(String address2) {
+    this.address2 = address2;
+    return this;
+  }
+
+  public ContactData withEmail1(String email1) {
+    this.email1 = email1;
+    return this;
+  }
+
+  public ContactData withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+  public ContactData withEmail3(String email3) {
+    this.email3 = email3;
+    return this;
+  }
+
+  public ContactData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
     return this;
   }
 
@@ -84,11 +139,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withEmail(String contactEmail) {
-    this.contactEmail = contactEmail;
-    return this;
-  }
-
   public ContactData withGroup(String group) {
     this.group = group;
     return this;
@@ -99,19 +149,19 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+    return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, lastname);
+    return Objects.hash(id, firstname, lastname);
   }
 
   @Override
   public String toString() {
     return "ContactData{" +
             "id=" + id +
-            ", contactName='" + name + '\'' +
+            ", contactName='" + firstname + '\'' +
             ", contactSurname='" + lastname + '\'' +
             '}';
   }
