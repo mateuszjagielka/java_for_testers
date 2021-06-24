@@ -1,5 +1,6 @@
 package pl.jagielka.mateusz.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -18,6 +19,7 @@ public class ContactData {
   private String allPhones;
   private String group;
   private String getAllDetails;
+  private File photo;
 
 
   public int getId() {
@@ -78,6 +80,10 @@ public class ContactData {
 
   public String getGetAllDetails() {
     return getAllDetails;
+  }
+
+  public File getPhoto() {
+    return photo;
   }
 
   public ContactData withId(int id) {
@@ -152,6 +158,11 @@ public class ContactData {
 
   public ContactData withGetAllDetails(String getAllDetails) {
     this.getAllDetails = getAllDetails;
+    return this;
+  }
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
     return this;
   }
 

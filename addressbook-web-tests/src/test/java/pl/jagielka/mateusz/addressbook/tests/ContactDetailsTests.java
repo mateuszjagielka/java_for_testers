@@ -35,6 +35,9 @@ public class ContactDetailsTests extends TestBase{
     contact = app.contact().getDataFromEditForm(contact);
     String dataFromDetails = app.contact().getDataFromDetails(contact);
 
+    System.out.println("I like cookies");
+    System.out.println(dataFromDetails);
+    System.out.println("I like cookies");
     assertThat(dataFromDetails, equalTo(mergeAllDataFromEditForm(contact, dataFromDetails)));
   }
 
