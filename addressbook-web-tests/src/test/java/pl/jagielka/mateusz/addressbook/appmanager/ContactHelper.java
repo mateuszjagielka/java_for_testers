@@ -58,6 +58,10 @@ public class ContactHelper extends HelperBase {
     cells.get(7).findElement(By.tagName("a")).click();
   }
 
+  public void gotoContactDetailsById(int id) {
+    wd.findElement(By.xpath("//a[contains(@href,'view.php?id="+ id + "')]")).click();
+  }
+
   public void submitContactModification() {
     click(By.xpath("(//input[@value='Update'])[2]"));
   }
@@ -118,10 +122,18 @@ public class ContactHelper extends HelperBase {
     String homeNumber = wd.findElement(By.cssSelector("[name='home']")).getAttribute("value");
     String mobileNumber = wd.findElement(By.cssSelector("[name='mobile']")).getAttribute("value");
     String workNumber = wd.findElement(By.cssSelector("[name='work']")).getAttribute("value");
+    String group = wd.findElement(By.cssSelector("[name='work']")).getAttribute("value");
     wd.navigate().back();
     return new ContactData().withId(contact.getId()).withFirstname(firstName).withLastname(lastName)
             .withAddress(address).withAddress2(address2).withEmail1(email1).withEmail2(email2).withEmail3(email3)
             .withHomeNumber(homeNumber).withMobileNumber(mobileNumber).withWorkNumber(workNumber);
+  }
+
+  public String getDataFromDetails(ContactData contact) {
+    gotoContactDetailsById(contact.getId());
+    String details = wd.findElement(By.cssSelector("[id='content']")).getText();
+    wd.navigate().back();
+    return details;
   }
 
   public Contacts all() {

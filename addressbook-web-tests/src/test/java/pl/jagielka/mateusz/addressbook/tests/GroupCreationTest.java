@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTest extends TestBase {
 
-  @Test (enabled = true, invocationCount = 1)
+  @Test (enabled = false, invocationCount = 1)
   public void groupCreationTest() throws Exception {
     app.goTo().groupPage();
     Groups before = app.group().all();
@@ -33,4 +33,12 @@ public class GroupCreationTest extends TestBase {
     Groups after = app.group().all();
     assertThat(after, equalTo(before));
   }
+
+  @Test (enabled = false, invocationCount = 10)
+  public void fastGroupCreation() throws Exception {
+    app.goTo().groupPage();
+    GroupData group = new GroupData().withName("test2");
+    app.group().create(group);
+  }
+
 }

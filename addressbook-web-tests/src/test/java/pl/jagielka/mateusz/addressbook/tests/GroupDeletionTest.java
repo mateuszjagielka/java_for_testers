@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import pl.jagielka.mateusz.addressbook.model.GroupData;
 import pl.jagielka.mateusz.addressbook.model.Groups;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
@@ -19,7 +21,7 @@ public class GroupDeletionTest extends TestBase {
     }
   }
 
-  @Test
+  @Test (enabled = true, invocationCount = 1)
   public void groupDeletionTest() throws Exception {
     Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
@@ -28,6 +30,13 @@ public class GroupDeletionTest extends TestBase {
 
     Groups after = app.group().all();
     assertThat(after, equalTo(before.without(deletedGroup)));
+  }
+
+  @Test (enabled = false)
+  public void allGroupsDeletion() throws Exception {
+    app.goTo().groupPage();
+    app.group().selectAllGroups();
+    app.group().deleteSelectedGroups();
   }
 
 }

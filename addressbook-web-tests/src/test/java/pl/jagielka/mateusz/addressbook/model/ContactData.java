@@ -17,6 +17,8 @@ public class ContactData {
   private String workNumber;
   private String allPhones;
   private String group;
+  private String getAllDetails;
+
 
   public int getId() {
     return id;
@@ -72,6 +74,10 @@ public class ContactData {
 
   public String getGroup() {
     return group;
+  }
+
+  public String getGetAllDetails() {
+    return getAllDetails;
   }
 
   public ContactData withId(int id) {
@@ -141,6 +147,11 @@ public class ContactData {
 
   public ContactData withGroup(String group) {
     this.group = group;
+    return this;
+  }
+
+  public ContactData withGetAllDetails(String getAllDetails) {
+    this.getAllDetails = getAllDetails;
     return this;
   }
 

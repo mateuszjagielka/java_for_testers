@@ -40,6 +40,13 @@ public class GroupHelper extends HelperBase {
     wd.findElement(By.xpath("//span/input[@value='" + id + "']")).click();
   }
 
+  public void selectAllGroups() {
+    for (int i = 1; i <= count(); i++) {
+      wd.findElement(By.xpath("(//input[@name='selected[]'])[" + i + "]")).click();
+    }
+
+  }
+
   public void modifySelectedGroup() {
     click(By.xpath("(//input[@name='edit'])[2]"));
   }
