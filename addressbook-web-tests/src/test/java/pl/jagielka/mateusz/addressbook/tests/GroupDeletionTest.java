@@ -21,7 +21,7 @@ public class GroupDeletionTest extends TestBase {
     }
   }
 
-  @Test (enabled = true, invocationCount = 1)
+  @Test (enabled = false, invocationCount = 1)
   public void groupDeletionTest() throws Exception {
     Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
@@ -32,7 +32,7 @@ public class GroupDeletionTest extends TestBase {
     assertThat(after, equalTo(before.without(deletedGroup)));
   }
 
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void allGroupsDeletion() throws Exception {
     app.goTo().groupPage();
     app.group().selectAllGroups();
