@@ -35,12 +35,14 @@ public class ContactData {
   private String workNumber;
   @XStreamOmitField
   private String allPhones;
-  @XStreamOmitField
+  @Expose
   private String group;
   @XStreamOmitField
   private String getAllDetails;
-  @Expose
+  @XStreamOmitField
   private File photo;
+  @Expose
+  private String photoPath;
 
 
   public int getId() {
@@ -105,6 +107,10 @@ public class ContactData {
 
   public File getPhoto() {
     return photo;
+  }
+
+  public String getPhotoPath() {
+    return photoPath;
   }
 
   public ContactData withId(int id) {
@@ -187,6 +193,12 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withPhotoPath(String photoPath) {
+    this.photoPath = photoPath;
+    this.photo = new File(photoPath);
+    return this;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -208,6 +220,4 @@ public class ContactData {
             ", contactSurname='" + lastname + '\'' +
             '}';
   }
-
-
 }
