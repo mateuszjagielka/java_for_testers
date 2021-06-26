@@ -8,8 +8,10 @@ import org.testng.annotations.Test;
 import pl.jagielka.mateusz.addressbook.model.GroupData;
 import pl.jagielka.mateusz.addressbook.model.Groups;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +63,6 @@ public class GroupCreationTest extends TestBase {
     Groups after = app.group().all();
     assertThat(after, equalTo(
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-
   }
 
   @Test (enabled = false)
@@ -82,5 +83,4 @@ public class GroupCreationTest extends TestBase {
     GroupData group = new GroupData().withName("test2");
     app.group().create(group);
   }
-
 }
