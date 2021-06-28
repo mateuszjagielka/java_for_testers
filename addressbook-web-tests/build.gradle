@@ -34,12 +34,6 @@ dependencies {
 
 }
 
-test {
-    useTestNG {
-//        suites 'src/test/resources/testng-groups.xml'
-    }
-}
-
 task testGroups(type: Test) {
     useTestNG {
         suites 'src/test/resources/testng-groups.xml'
@@ -49,6 +43,9 @@ task testGroups(type: Test) {
     }
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
     }
 }
 
@@ -61,5 +58,8 @@ task testContacts(type: Test) {
     }
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
     }
 }
