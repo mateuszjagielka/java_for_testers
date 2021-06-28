@@ -29,7 +29,8 @@ public class ContactData {
   private String lastname;
 
   @Expose
-  @Transient
+  @Column(name = "address")
+  @Type(type = "text")
   private String address;
 
   @Expose
@@ -37,7 +38,8 @@ public class ContactData {
   private String address2;
 
   @Expose
-  @Transient
+  @Column(name = "email")
+  @Type(type = "text")
   private String email1;
 
   @Expose
@@ -63,8 +65,7 @@ public class ContactData {
   private String mobileNumber;
 
   @Expose
-  @Column(name = "work")
-  @Type(type = "text")
+  @Transient
   private String workNumber;
 
   @XStreamOmitField
@@ -84,8 +85,7 @@ public class ContactData {
   private File photo;
 
   @Expose
-  @Column(name = "photo")
-  @Type(type = "text")
+  @Transient
   private String photoPath;
 
 
@@ -248,20 +248,30 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
+    return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(address, that.address) && Objects.equals(email1, that.email1) && Objects.equals(homeNumber, that.homeNumber) && Objects.equals(mobileNumber, that.mobileNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, lastname);
+    return Objects.hash(id, firstname, lastname, address, email1, homeNumber, mobileNumber);
   }
 
   @Override
   public String toString() {
     return "ContactData{" +
             "id=" + id +
-            ", contactName='" + firstname + '\'' +
-            ", contactSurname='" + lastname + '\'' +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", address='" + address + '\'' +
+            ", address2='" + address2 + '\'' +
+            ", email1='" + email1 + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
+            ", homeNumber='" + homeNumber + '\'' +
+            ", mobileNumber='" + mobileNumber + '\'' +
+            ", workNumber='" + workNumber + '\'' +
+            ", group='" + group + '\'' +
+            ", photoPath='" + photoPath + '\'' +
             '}';
   }
 }

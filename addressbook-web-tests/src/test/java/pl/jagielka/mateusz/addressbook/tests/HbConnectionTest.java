@@ -8,7 +8,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pl.jagielka.mateusz.addressbook.model.ContactData;
-import pl.jagielka.mateusz.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class HbConnectionTest {
   private SessionFactory sessionFactory;
 
   @BeforeClass
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     // A SessionFactory is set up once for an application!
     final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-            .configure() // configures settings from hibernate.cfg.xml
+            .configure("hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
             .build();
     try {
       sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
