@@ -16,7 +16,10 @@ public class GroupModificationTest extends TestBase{
     app.goTo().groupPage();
     if (app.group().all().size() == 0) {
       app.group().create(
-              new GroupData().withName("new name"));
+              new GroupData()
+                      .withName(app.property().getProperty("group.name"))
+                      .withHeader(app.property().getProperty("group.header"))
+                      .withFooter(app.property().getProperty("group.footer")));
     }
   }
 
@@ -25,7 +28,10 @@ public class GroupModificationTest extends TestBase{
     Groups before = app.group().all();
     GroupData modifiedGroup = before.iterator().next();
     GroupData group = new GroupData()
-            .withId(modifiedGroup.getId()).withName("new name").withHeader("new header").withFooter("new footer");
+            .withId(modifiedGroup.getId())
+            .withName(app.property().getProperty("group.modified.name"))
+            .withHeader(app.property().getProperty("group.modified.header"))
+            .withFooter(app.property().getProperty("group.modified.footer"));
     app.group().modify(group);
     assertEquals(app.group().count(), before.size());
 

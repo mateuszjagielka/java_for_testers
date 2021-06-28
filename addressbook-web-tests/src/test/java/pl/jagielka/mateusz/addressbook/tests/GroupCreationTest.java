@@ -23,7 +23,7 @@ public class GroupCreationTest extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File(app.property().getProperty("dataFilePathXml.groups"))))) {
       String xml ="";
       String line = reader.readLine();
       while (line != null) {
@@ -39,8 +39,8 @@ public class GroupCreationTest extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromJson() throws IOException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")))) {
-      String json ="";
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File(app.property().getProperty("dataFilePathJson.groups"))))) {
+      String json = "";
       String line = reader.readLine();
       while (line != null) {
         json += line;
@@ -59,7 +59,6 @@ public class GroupCreationTest extends TestBase {
     Groups before = app.group().all();
     app.group().create(group);
     assertThat(app.group().count(), equalTo(before.size() + 1));
-
     Groups after = app.group().all();
     assertThat(after, equalTo(
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
@@ -69,7 +68,7 @@ public class GroupCreationTest extends TestBase {
   public void badGroupCreationTest() throws Exception {
     app.goTo().groupPage();
     Groups before = app.group().all();
-    GroupData group = new GroupData().withName("test2'");
+    GroupData group = new GroupData().withName(app.property().getProperty("group.badName"));
     app.group().create(group);
     assertThat(app.group().count(), equalTo(before.size()));
 
@@ -80,7 +79,7 @@ public class GroupCreationTest extends TestBase {
   @Test (enabled = false, invocationCount = 10)
   public void fastGroupCreation() throws Exception {
     app.goTo().groupPage();
-    GroupData group = new GroupData().withName("test2");
+    GroupData group = new GroupData().withName(app.property().getProperty("group.name"));
     app.group().create(group);
   }
 }

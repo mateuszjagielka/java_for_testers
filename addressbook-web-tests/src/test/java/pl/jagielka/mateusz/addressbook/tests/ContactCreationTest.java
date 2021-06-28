@@ -7,7 +7,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pl.jagielka.mateusz.addressbook.model.ContactData;
 import pl.jagielka.mateusz.addressbook.model.Contacts;
-import pl.jagielka.mateusz.addressbook.model.GroupData;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,7 +23,7 @@ public class ContactCreationTest extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validContactsFromJson() throws IOException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File(app.property().getProperty("dataFilePathJson.contacts"))))) {
       String json ="";
       String line = reader.readLine();
       while (line != null) {
@@ -55,7 +54,7 @@ public class ContactCreationTest extends TestBase {
   public void testCurrentDir() {
     File currentDir = new File(".");
     System.out.println(currentDir.getAbsolutePath());
-    File photo = new File("src/test/resources/abc.png");
+    File photo = new File(app.property().getProperty("contact.photoPath"));
     System.out.println(photo.getAbsolutePath());
     System.out.println(photo.exists());
     System.out.println(photo.isFile());

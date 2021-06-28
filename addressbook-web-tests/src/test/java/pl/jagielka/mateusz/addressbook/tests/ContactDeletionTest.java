@@ -17,8 +17,11 @@ public class ContactDeletionTest extends TestBase {
     if (app.contact().all().size() == 0) {
       app.contact().create(
               new ContactData()
-                      .withFirstname("Adam").withLastname("Nowak").withHomeNumber("569874125")
-                      .withAllEmails("adam.nowak@secretmail.gov").withGroup("test1"),
+                      .withFirstname(app.property().getProperty("contact.firstname"))
+                      .withLastname(app.property().getProperty("contact.lastname"))
+                      .withHomeNumber(app.property().getProperty("contact.homeNumber"))
+                      .withEmail1(app.property().getProperty("contact.email1"))
+                      .withGroup(app.property().getProperty("contact.group")),
               true);
     }
   }

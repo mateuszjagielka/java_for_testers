@@ -6,6 +6,10 @@
             <class name="pl.jagielka.mateusz.addressbook.tests.ContactCreationTest"/>
             <class name="pl.jagielka.mateusz.addressbook.tests.ContactModificationTest"/>
             <class name="pl.jagielka.mateusz.addressbook.tests.ContactDeletionTest"/>
+            <class name="pl.jagielka.mateusz.addressbook.tests.ContactPhoneTests"/>
+            <class name="pl.jagielka.mateusz.addressbook.tests.ContactEmailTests"/>
+            <class name="pl.jagielka.mateusz.addressbook.tests.ContactAddressTests"/>
+            <class name="pl.jagielka.mateusz.addressbook.tests.ContactDetailsTests"/>
         </classes>
     </test>
 </suite>

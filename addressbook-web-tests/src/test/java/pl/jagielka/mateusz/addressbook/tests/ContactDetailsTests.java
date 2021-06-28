@@ -18,11 +18,17 @@ public class ContactDetailsTests extends TestBase{
     app.goTo().contactPage();
     Contacts contacts = app.contact().all();
     ContactData contact = new ContactData()
-            .withFirstname("Adam").withLastname("Nowak")
-            .withAddress("Longstreet 4, 54-389 London").withAddress2("Shortstreet 5, 54-859 Brighton")
-            .withHomeNumber("+569874125").withMobileNumber("456-321").withWorkNumber("(45)6789")
-            .withEmail1("adam.nowak@secretmail.gov").withEmail2("abc@def.gh")
-            .withEmail3("hgf@edc.ba").withGroup("test1");
+            .withFirstname(app.property().getProperty("contact.firstname"))
+            .withLastname(app.property().getProperty("contact.lastname"))
+            .withAddress(app.property().getProperty("contact.address"))
+            .withAddress2(app.property().getProperty("contact.address2"))
+            .withHomeNumber(app.property().getProperty("contact.homeNumber"))
+            .withMobileNumber(app.property().getProperty("contact.mobileNumber"))
+            .withWorkNumber(app.property().getProperty("contact.workNumber"))
+            .withEmail1(app.property().getProperty("contact.email1"))
+            .withEmail2(app.property().getProperty("contact.email2"))
+            .withEmail3(app.property().getProperty("contact.email3"))
+            .withGroup(app.property().getProperty("contact.group"));
     if (contacts.size() == 0) {
       app.contact().create(contact, true);
     }
@@ -35,9 +41,6 @@ public class ContactDetailsTests extends TestBase{
     contact = app.contact().getDataFromEditForm(contact);
     String dataFromDetails = app.contact().getDataFromDetails(contact);
 
-    System.out.println("I like cookies");
-    System.out.println(dataFromDetails);
-    System.out.println("I like cookies");
     assertThat(dataFromDetails, equalTo(mergeAllDataFromEditForm(contact, dataFromDetails)));
   }
 
