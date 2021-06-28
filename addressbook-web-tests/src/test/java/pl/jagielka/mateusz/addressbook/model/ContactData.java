@@ -3,45 +3,89 @@ package pl.jagielka.mateusz.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+
+
   @XStreamOmitField
+  @Id
+  @Column(name = "id")
   private int id;
+
   @Expose
+  @Column(name = "firstname")
   private String firstname;
+
   @Expose
+  @Column(name = "lastname")
   private String lastname;
+
   @Expose
+  @Transient
   private String address;
+
   @Expose
+  @Transient
   private String address2;
+
   @Expose
+  @Transient
   private String email1;
+
   @Expose
+  @Transient
   private String email2;
+
   @Expose
+  @Transient
   private String email3;
+
   @XStreamOmitField
+  @Transient
   private String allEmails;
+
   @Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String homeNumber;
+
   @Expose
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobileNumber;
+
   @Expose
+  @Column(name = "work")
+  @Type(type = "text")
   private String workNumber;
+
   @XStreamOmitField
+  @Transient
   private String allPhones;
+
   @Expose
+  @Transient
   private String group;
+
   @XStreamOmitField
+  @Transient
   private String getAllDetails;
+
   @XStreamOmitField
+  @Transient
   private File photo;
+
   @Expose
+  @Column(name = "photo")
+  @Type(type = "text")
   private String photoPath;
 
 
