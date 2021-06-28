@@ -4,7 +4,6 @@ import org.testng.annotations.Test;
 import pl.jagielka.mateusz.addressbook.model.GroupData;
 import pl.jagielka.mateusz.addressbook.model.Groups;
 
-import java.nio.file.attribute.GroupPrincipal;
 import java.sql.*;
 
 public class DbConnectionTest {
