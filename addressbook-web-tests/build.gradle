@@ -26,13 +26,16 @@ dependencies {
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.25'
+
 }
 
-//test {
-//    useTestNG {
+test {
+    useTestNG {
 //        suites 'src/test/resources/testng-groups.xml'
-//    }
-//}
+    }
+}
 
 task testGroups(type: Test) {
     useTestNG {
