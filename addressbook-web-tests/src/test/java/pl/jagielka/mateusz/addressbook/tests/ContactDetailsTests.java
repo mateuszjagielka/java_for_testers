@@ -45,7 +45,7 @@ public class ContactDetailsTests extends TestBase{
   }
 
   private String mergeAllDataFromEditForm(ContactData contact, String details) {
-    return Arrays.asList(mergeNameWithAddress(contact), mergePhones(contact), mergeEmails(contact), mergeAddress2WithGroup(contact, details))
+    return Arrays.asList(mergeNameWithAddress(contact), mergePhonesWithPrefixes(contact), mergeEmails(contact), mergeAddress2WithGroup(contact, details))
             .stream().filter((s) -> ! s.equals(""))
             .collect(Collectors.joining("\n\n"));
   }
@@ -57,7 +57,7 @@ public class ContactDetailsTests extends TestBase{
             .filter((s) -> ! s.equals("")).collect(Collectors.joining("\n"));
   }
 
-  private String mergePhones(ContactData contact) {
+  private String mergePhonesWithPrefixes(ContactData contact) {
     String[] prefixes = {"H: ", "M: ", "W: "};
     String[] phones = {contact.getHomeNumber(), contact.getMobileNumber(), contact.getWorkNumber()};
     for (int i = 0; i < phones.length; i++) {
@@ -65,12 +65,6 @@ public class ContactDetailsTests extends TestBase{
         phones[i] = prefixes[i] + phones[i];
     }
     return Arrays.asList(phones)
-            .stream().filter((s) -> ! s.equals(""))
-            .collect(Collectors.joining("\n"));
-  }
-
-  private String mergeEmails(ContactData contact) {
-    return Arrays.asList(contact.getEmail1(), contact.getEmail2(), contact.getEmail3())
             .stream().filter((s) -> ! s.equals(""))
             .collect(Collectors.joining("\n"));
   }

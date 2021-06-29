@@ -8,10 +8,13 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import pl.jagielka.mateusz.addressbook.appmanager.ApplicationManager;
+import pl.jagielka.mateusz.addressbook.model.ContactData;
+import pl.jagielka.mateusz.addressbook.model.Contacts;
 import pl.jagielka.mateusz.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.Properties;
 
@@ -53,6 +56,36 @@ public class TestBase {
       assertThat(uiGroups, equalTo(
               dbGroups.stream().map((g) -> g.withHeader(null).withFooter(null)).collect(Collectors.toSet())));
     }
+  }
+
+  public void verifyContactListInUI() {
+    if (Boolean.getBoolean("verifyUI")) {
+      Contacts dbContacts = app.db().contacts();
+
+      Contacts uiContacts = app.contact().all();
+      assertThat(uiContacts, equalTo(
+              dbContacts.stream().map(
+                      (c) -> c.withAllPhones(mergePhones(c))
+                              .withAllEmails(mergeEmails(c)))
+                      .collect(Collectors.toSet())));
+    }
+  }
+
+  public String mergePhones(ContactData contact) {
+    return Arrays.asList(contact.getHomeNumber(), contact.getMobileNumber(), contact.getWorkNumber())
+            .stream().filter((s) -> ! s.equals(""))
+            .map(ContactPhoneTests::cleaned)
+            .collect(Collectors.joining("\n"));
+  }
+
+  public String mergeEmails(ContactData contact) {
+    return Arrays.asList(contact.getEmail1(), contact.getEmail2(), contact.getEmail3())
+            .stream().filter((s) -> ! s.equals(""))
+            .collect(Collectors.joining("\n"));
+  }
+
+  public static String cleaned(String phone) {
+    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
 
   public ApplicationManager getApp() {
